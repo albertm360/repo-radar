@@ -18,7 +18,7 @@ Track the GitHub repositories you care about, with tags, notes and stats.
 ## Getting started
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/albertm360/repo-radar.git
 cd repo-radar
 nvm use
 npm ci
