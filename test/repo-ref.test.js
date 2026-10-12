@@ -15,5 +15,16 @@ describe('parseRepoRef', () => {
       owner: 'nodejs',
       name: 'node',
     });
+  });  
+
+  it('accepts dots, dashes and underscores in repo names', () => {
+    assert.deepEqual(parseRepoRef('vercel/next.js'), {
+      owner: 'vercel',
+      name: 'next.js',
+    });
+    assert.deepEqual(parseRepoRef('a-b/c_d-e.f'), {
+      owner: 'a-b',
+      name: 'c_d-e.f',
+    });
   });
 });
