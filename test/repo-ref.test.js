@@ -9,4 +9,11 @@ describe('parseRepoRef', () => {
       name: 'node',
     });
   });
+
+  it('trims surrounding whitespace', () => {
+    assert.deepEqual(parseRepoRef('  nodejs/node \n'), {
+      owner: 'nodejs',
+      name: 'node',
+    });
+  });
 });
