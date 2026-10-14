@@ -70,7 +70,9 @@ function hasOnlyAllowedChars(text, extras) {
 function validateOwner(owner, ref) {
   if (owner.length === 0 || owner.length > MAX_OWNER_LENGTH) fail(ref);
   if (!hasOnlyAllowedChars(owner, OWNER_EXTRA_CHARS)) fail(ref);
-  if (owner.startsWith(OWNER_EDGE_CHAR) || owner.endsWith(OWNER_EDGE_CHAR)) fail(ref);
+  if (owner.startsWith(OWNER_EDGE_CHAR) || owner.endsWith(OWNER_EDGE_CHAR)) {
+    fail(ref);
+  }
   if (owner.includes(OWNER_FORBIDDEN_SEQUENCE)) fail(ref);
 }
 
@@ -92,12 +94,15 @@ function validateName(name, ref) {
  * Surrounding whitespace is trimmed before validation.
  * @param {string} ref - The reference to parse, e.g. `'nodejs/node'`.
  * @returns {{ owner: string, name: string }} The owner and repository name.
+ * @throws {TypeError} If the reference is not a string.
  * @throws {RangeError} If the reference is not a string or breaks any owner/name rule.
  * @example
  * parseRepoRef('  vercel/next.js '); // { owner: 'vercel', name: 'next.js' }
  */
 export function parseRepoRef(ref) {
-  if (typeof ref !== 'string') fail(ref);
+  if (typeof ref !== 'string') {
+    throw new TypeError('Repository reference must be a string');
+  }
 
   const parts = ref.trim().split(SEPARATOR);
   if (parts.length !== 2) fail(ref);

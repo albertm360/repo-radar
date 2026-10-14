@@ -53,4 +53,14 @@ describe('parseRepoRef', () => {
       assert.throws(() => parseRepoRef(input), RangeError);
     });
   }
+
+  const invalidTypes = [null, undefined, 42, {}, [], ['a/b'], true, false];
+  for (const input of invalidTypes) {
+    it(`rejects non-string ${JSON.stringify(input)}`, () => {
+      assert.throws(() => parseRepoRef(input), {
+        name: 'TypeError',
+        message: /must be a string/,
+      });
+    });
+  }
 });
