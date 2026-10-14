@@ -1,8 +1,10 @@
 # repo-radar
 
+[![CI](https://github.com/albertm360/repo-radar/actions/workflows/ci.yml/badge.svg)](https://github.com/albertm360/repo-radar/actions/workflows/ci.yml)
+
 Track the GitHub repositories you care about, with tags, notes and stats.
 
-> **Status: early development.** A learning project, built test-first in plain Node.js (ES modules). So far it contains only the project setup and tooling; the core logic comes next.
+> **Status: early development.** A learning project, built test-first in plain Node.js (ES modules). So far: project tooling and owner/name reference parsing; tracking, tags and stats come next.
 
 ## Planned features
 
@@ -39,11 +41,19 @@ npm run check
 
 Code is written test-first (red, green, refactor). Real API responses are saved in `fixtures/` so tests run offline and stay deterministic.
 
+Workflow:
+
+- `main` is protected: changes go through a pull request and are squash-merged
+- Commit messages and PR titles follow [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, `chore:`, `ci:`)
+- Run `npm run check` before pushing
+- CI runs the same `npm run check` on every pull request and on pushes to `main`, and Dependabot keeps the pinned GitHub Actions up to date
+
 ## Project layout
 
 - `src/` application code
 - `test/` tests
 - `fixtures/` captured API responses used by tests
+- `.github/` CI workflow and Dependabot configuration
 
 ## License
 
