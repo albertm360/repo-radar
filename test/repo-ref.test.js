@@ -15,7 +15,7 @@ describe('parseRepoRef', () => {
       owner: 'nodejs',
       name: 'node',
     });
-  });  
+  });
 
   it('accepts dots, dashes and underscores in repo names', () => {
     assert.deepEqual(parseRepoRef('vercel/next.js'), {
@@ -27,4 +27,30 @@ describe('parseRepoRef', () => {
       name: 'c_d-e.f',
     });
   });
+
+  const malformed = [
+    '',
+    '   ',
+    'nodejs',
+    '/node',
+    'nodejs/',
+    'a/b/c',
+    'nodejs/..',
+    'nodejs/.',
+    '../node',
+    '-bad/repo',
+    'bad-/repo',
+    'bad--name/repo',
+    'owner/repo.git',
+    'owner/na me',
+    'owner/na;me',
+    'owner/na\nme',
+    `${'a'.repeat(40)}/repo`,
+    `owner/${'a'.repeat(101)}`,
+  ];
+  for (const input of malformed) {
+    it(`rejects ${JSON.stringify(input)}`, () => {
+      assert.throws(() => parseRepoRef(input), RangeError);
+    });
+  }
 });
