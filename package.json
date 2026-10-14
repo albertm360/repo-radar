@@ -1,6 +1,6 @@
 {
   "name": "repo-radar",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Track GitHub repositories: a learning project in plain Node.js",
   "scripts": {
     "test": "node --test",
